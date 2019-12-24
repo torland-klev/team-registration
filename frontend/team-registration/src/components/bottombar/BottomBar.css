@@ -1,14 +1,13 @@
-.Banner {
+.BottomBar {
   text-align: center;
   height: 10vh;
   width: 100vh;
   display: flex;
-  flex: 1;
   flex-direction: row;
   align-items: center;
-  border: 2px solid red;
+  border: 2px solid green;
   border-radius: 10px;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: red;
+  color: green;
 }
