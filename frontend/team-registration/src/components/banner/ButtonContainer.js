@@ -4,12 +4,17 @@ import { TextButton } from '../';
 
 export default class ButtonContainer extends Component {
 
+  constructor(props){
+    super(props);
+    this.buttons = this.props.buttons.map( (text, index) =>
+      <TextButton text={text} onClick={() => (window.location.href = this.props.onClick[index])} key={index}/>
+    );
+  }
+
   render(){
     return(
       <div className="ButtonContainer">
-        <TextButton text="Players" onClick={() => (window.location.href = '/players')}/>
-        <TextButton text="Teams" onClick={() => (window.location.href = '/teams')}/>
-        <TextButton text="Leagues" onClick={() => (window.location.href = '/leagues')}/>
+        {this.buttons}
       </div>
     );
   }
