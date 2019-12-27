@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import './Banner.css';
+import { TextButton } from '../';
+import { ButtonContainer } from './';
 
 export default class Banner extends Component{
-  constructor() {
-    super();
-    this.state = {
-      title: "Banner",
-    }
-  }
 
   render(){
     return(
-      <div className="Banner">{this.state.title}</div>
+      <div className="Banner">
+        <TextButton bold text="appname" onClick={() => (window.location.href = '/players')} style={{fontSize: '30px'}}/>
+        {this.props.title}
+        <ButtonContainer />
+      </div>
     );
   }
 }

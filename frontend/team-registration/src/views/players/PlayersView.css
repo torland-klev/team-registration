@@ -1,13 +1,4 @@
-.BottomBar {
-  text-align: center;
-  height: 10vh;
-  width: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: 2px solid green;
-  border-radius: 10px;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: green;
+.PlayersView {
+  width: 100%;
+  height: 100%;
 }

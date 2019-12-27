@@ -1,4 +1,13 @@
-export { default as App } from './app';
-export { default as Banner } from './banner';
-export { default as BottomBar } from './bottombar';
-export { default as Body } from './body';
+import App from './app';
+import { Banner } from './banner';
+import Footer from './footer';
+import TextButton from './navigation';
+import ListContainer from './list';
+
+export{
+  App,
+  Banner,
+  Footer,
+  TextButton,
+  ListContainer
+}

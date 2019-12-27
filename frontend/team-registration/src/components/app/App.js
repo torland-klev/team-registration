@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Redirect} from 'react-router-dom';
 import './App.css';
-import { Banner, BottomBar, Body } from '../';
-import { HomeView, PlayersView } from '../../views';
+import { Banner, Footer } from '../';
+import SiteImage from '../siteimage/SiteImage';
+import { HomeView, PlayersView, CreatePlayerView } from '../../views';
 
 export default class App extends Component {
   render(){
     return (
       <div className="Container">
-        <div className="App">
-          <Banner />
+        <SiteImage />
+        <Banner />
+        <BrowserRouter>
           <div className="Body">
-            <BrowserRouter>
-              <div>
-                <Route exact path='/' component={HomeView} />
-                <Route exact path='/players' component={PlayersView} />
-              </div>
-            </BrowserRouter>
+            <Route exact path='/' component={HomeView} />
+            <Route exact path='/players' component={PlayersView} />
+            <Route exact path='/create-player' component={CreatePlayerView} />
           </div>
-          <BottomBar />
-        </div>
+        </BrowserRouter>
+        <Footer />
       </div>
     );
   }

@@ -1,3 +1,7 @@
-import Banner from './Banner.js';
+import Banner from './Banner';
+import ButtonContainer from './ButtonContainer';
 
-export default Banner;
+export {
+  Banner,
+  ButtonContainer,
+};

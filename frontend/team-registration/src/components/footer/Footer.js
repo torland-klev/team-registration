@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import './Body.css';
+import './Footer.css';
 
-export default class Body extends Component {
+export default class Footer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      title: "Body",
+      title: "Footer",
     };
   }
 
   render(){
     return(
-      <div className="Body">{this.state.title}</div>
+      <div className="Footer">{this.state.title}</div>
     );
   }
 }
