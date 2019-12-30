@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './CreatePlayerView.css';
+import { createUser } from '../../services/XRH';
 
 export default class CreatePlayerView extends Component {
   constructor(props){
@@ -7,6 +8,8 @@ export default class CreatePlayerView extends Component {
     this.state = {
       title: "Create Player",
       selectedFile: null,
+      name: "",
+      date: ""
     };
   }
 
@@ -38,14 +41,17 @@ export default class CreatePlayerView extends Component {
 
     const similar =
       <div className="InformationContainer">
-        <input type="text" placeholder="Player Name" maxLength="64" required/>
+        <input type="text" placeholder="Player Name" maxLength="64" required onChange={(name) => (this.setState({name: name}))}/>
         <input type="date" required />
       </div>;
     if (this.state.selectedFile){
       return(
         <div className="CreatePlayerContainer">
-          <img src={URL.createObjectURL(this.state.selectedFile)} onClick={this.handleFileSelect} />
+          <img src={URL.createObjectURL(this.state.selectedFile)} onClick={this.handleFileSelect} alt="Player Portrait" />
           {similar}
+          <div className="SubmitButton" onClick={() => createUser("test", "2019-01-01", this.state.selectedFile)} >
+            <h5>Create Player</h5>
+          </div>
         </div>
       )
     } else {
@@ -55,6 +61,7 @@ export default class CreatePlayerView extends Component {
             +
           </div>
           {similar}
+          <div className="SubmitButton" style={{visibility: "hidden"}}><h5>Invisible</h5></div>
         </div>
       );
     }

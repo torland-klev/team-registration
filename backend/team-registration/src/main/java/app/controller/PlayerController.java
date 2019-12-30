@@ -5,28 +5,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.DateFormat;
+import app.repository.PlayerRepository;
+import app.model.Player;
+
+import java.text.SimpleDateFormat;
 
 @Controller
 @RequestMapping(path="/players")
 public class PlayerController {
+
   @Autowired
   private PlayerRepository playerRepository;
 
-  @PostMapping(path="/players")
-  public @ResponseBody String addNewPlayer(@RequestParam String name, @RequestParam String date){
-    Player p = new Player();
-    DateFormat dft = new DateFormat();
-    p.setName(name);
-    p.setDate(dft.parse(date));
-    playerRepository.save(p);
-    return "Player stored";
+  @PostMapping
+  public @ResponseBody String addNewPlayer(@RequestBody Player player){
+
+    playerRepository.save(player);
+
+    return (player.getName() + " " + player.getDate());
   }
-  @GetMapping(path="/players")
+
+  @GetMapping
   public @ResponseBody Iterable<Player> getAllPlayers() {
-    return userRepository.findAll();
+    return playerRepository.findAll();
   }
 }

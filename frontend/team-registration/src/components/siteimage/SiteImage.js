@@ -7,7 +7,7 @@ export default class SiteImage extends Component {
   render(){
     return(
       <div className="SiteImage">
-        <img src={Banner}/>
+        <img src={Banner} alt="Site Banner"/>
         <div className="center-text">
           Text Over Image
         </div>
