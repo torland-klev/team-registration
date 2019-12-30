@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter, Route } from 'react-router-dom';
 import './App.css'
 import { APP_NAME } from '../../config';
 import { Banner, Footer } from '../';

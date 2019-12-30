@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { useHistory } from 'react-router-dom';
 import './Button.css';
 
 export default class TextButton extends Component{
@@ -9,7 +8,7 @@ export default class TextButton extends Component{
       title: "Button",
     }
   };
-  
+
   render(){
 
     const fromProps = (this.props.text) ? this.props.text : this.state.time;
