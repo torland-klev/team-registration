@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import app.model.Player;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -34,20 +36,33 @@ public class PlayerController {
   private PlayerRepository playerRepository;
 
   @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<String> uploadFile(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String date) {
+  public @ResponseBody Player createPlayer(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String date) {
     logger.info(String.format("File name '%s' uploaded successfully.", file.getOriginalFilename()));
     logger.info(String.format("Name '%s', date '%s'.", name, date));
     Player player = new Player();
     player.setName(name);
-    player.setDate(date);
+    player.setBirthday(date);
     player.setProfileImage(file);
     playerRepository.save(player);
 
-    return new ResponseEntity<String>("BODY!", HttpStatus.OK);
+    return player;
+  }
+
+  @PostMapping(value = "")
+  public @ResponseBody Player createPlayer(@RequestBody Player player) {
+    logger.info(String.format("Name '%s', date '%s'.", player.getName(), player.getBirthday().toString()));
+    playerRepository.save(player);
+
+    return player;
   }
 
   @GetMapping
   public @ResponseBody Iterable<Player> getAllPlayers() {
     return playerRepository.findAll();
+  }
+
+  @GetMapping(value = "/{id}")
+  public @ResponseBody Optional<Player> getPlayer(@PathVariable(value="id") long id){
+    return playerRepository.findById(id);
   }
 }

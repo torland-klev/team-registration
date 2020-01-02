@@ -9,10 +9,14 @@ const createUser = (name, date, image) => {
   fetch(TARGET + '/players', {
      method: 'post',
      body: formData
-  }).then(res => {
-    if(res.ok) {
-      console.log(res);
-      alert("Player uploaded successfully.")
+  })
+  .then(res => res.json())
+  .then(resJson => {
+    console.log(resJson);
+    if(resJson.id){
+      alert("Player uploaded successfully.");
+    } else {
+      alert("Error occured.");
     }
    });
 };

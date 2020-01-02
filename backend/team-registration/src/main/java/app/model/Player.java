@@ -4,9 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.text.ParseException;
@@ -17,15 +19,22 @@ import app.service.Converter;
 public class Player{
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
-  private Integer id;
+  private Long id;
   private String name;
-  private Date date;
+  private LocalDate birthday;
   private byte[] profileImage;
+  private final LocalDateTime created;
+  private LocalDateTime lastUpdated;
 
-  public Integer getId(){
+  public Player(){
+    this.created = LocalDateTime.now();
+    this.lastUpdated = LocalDateTime.now();
+  }
+
+  public Long getId(){
     return id;
   }
-  public void setId(Integer id){
+  public void setId(Long id){
     this.id = id;
   }
   public String getName(){
@@ -33,20 +42,25 @@ public class Player{
   }
   public void setName(String name){
     this.name = name;
+    this.lastUpdated = LocalDateTime.now();
   }
-  public Date getDate(){
-    return date;
+  public LocalDate getBirthday(){
+    return birthday;
   }
-  public void setDate(Date date){
-    this.date = date;
+  public void setBirthday(LocalDate date){
+    this.birthday = date;
+    this.lastUpdated = LocalDateTime.now();
   }
-  public void setDate(String date){
+  public void setBirthday(String date){
+    System.out.println(date);
+    this.lastUpdated = LocalDateTime.now();
     try {
-      this.date = (new SimpleDateFormat("yyMMdd")).parse(date);
-    } catch (ParseException e){
+      this.birthday = LocalDate.parse(date);
+    } catch (DateTimeParseException e){
       e.printStackTrace();
-      this.date = null;
+      this.birthday = null;
     }
+    System.out.println(this.birthday.toString());
   }
   public byte[] getProfileImage(){
     return profileImage;
@@ -58,5 +72,8 @@ public class Player{
       e.printStackTrace();
       this.profileImage = null;
     }
+  }
+  public LocalDateTime getCreated(){
+    return created;
   }
 }
