@@ -3,9 +3,9 @@ const TARGET = "http://localhost:9090";
 
 const createUser = (name, date, image) => {
   const formData = new FormData();
-  formData.append('file', image);
+  formData.append('profileImage', image);
   formData.append('name', name);
-  formData.append('date', date);
+  formData.append('birthday', date);
   fetch(TARGET + '/players', {
      method: 'post',
      body: formData
@@ -14,7 +14,7 @@ const createUser = (name, date, image) => {
   .then(resJson => {
     console.log(resJson);
     if(resJson.id){
-      alert("Player uploaded successfully.");
+      alert("Player (id=" + resJson.id +") uploaded successfully.");
     } else {
       alert("Error occured.");
     }

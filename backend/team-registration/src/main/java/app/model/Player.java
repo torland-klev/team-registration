@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
@@ -12,17 +16,21 @@ import java.time.format.DateTimeParseException;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.text.ParseException;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import app.service.Converter;
+import app.model.ProfileImage;
 
 @Entity
 public class Player{
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
-  private Long id;
+  private Long playerId;
   private String name;
   private LocalDate birthday;
-  private byte[] profileImage;
+  @OneToOne
+  @JoinColumn(name = "profile_image_id")
+  @JsonManagedReference
+  private ProfileImage profileImage;
   private final LocalDateTime created;
   private LocalDateTime lastUpdated;
 
@@ -31,11 +39,11 @@ public class Player{
     this.lastUpdated = LocalDateTime.now();
   }
 
-  public Long getId(){
-    return id;
+  public Long getPlayerId(){
+    return playerId;
   }
-  public void setId(Long id){
-    this.id = id;
+  public void setPlayerId(Long playerId){
+    this.playerId = playerId;
   }
   public String getName(){
     return name;
@@ -52,7 +60,6 @@ public class Player{
     this.lastUpdated = LocalDateTime.now();
   }
   public void setBirthday(String date){
-    System.out.println(date);
     this.lastUpdated = LocalDateTime.now();
     try {
       this.birthday = LocalDate.parse(date);
@@ -60,18 +67,16 @@ public class Player{
       e.printStackTrace();
       this.birthday = null;
     }
-    System.out.println(this.birthday.toString());
   }
-  public byte[] getProfileImage(){
+  public ProfileImage getProfileImage(){
     return profileImage;
   }
-  public void setProfileImage(MultipartFile profileImage){
-    try{
-      this.profileImage = profileImage.getBytes();
-    } catch (Exception e){
-      e.printStackTrace();
-      this.profileImage = null;
-    }
+  public void setProfileImage(ProfileImage profileImage){
+    lastUpdated = LocalDateTime.now();
+    this.profileImage = profileImage;
+  }
+  public LocalDateTime getLastUpdated(){
+    return lastUpdated;
   }
   public LocalDateTime getCreated(){
     return created;
